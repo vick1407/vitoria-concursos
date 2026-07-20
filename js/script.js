@@ -227,24 +227,18 @@ document.querySelectorAll(
 SMOOTH SCROLL
 ==========================*/
 
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+document.querySelectorAll('.nav-link[href^="#"]').forEach(link => {
 
-    anchor.addEventListener("click", function (e) {
+    link.addEventListener("click", function(e) {
 
         e.preventDefault();
 
-        const target = document.querySelector(
-
-            this.getAttribute("href")
-
-        );
+        const target = document.querySelector(this.getAttribute("href"));
 
         if (!target) return;
 
         target.scrollIntoView({
-
             behavior: "smooth"
-
         });
 
     });
@@ -424,6 +418,20 @@ document.querySelectorAll(".nav-link").forEach(link => {
 
 });
 
+/*==========================
+REMOVE FOCO DO LINK
+==========================*/
+
+document.querySelectorAll(".nav-link").forEach(link => {
+
+    link.addEventListener("click", function () {
+
+        this.blur();
+
+    });
+
+});
+
 
 /*==========================
 PRELOAD
@@ -436,40 +444,235 @@ window.addEventListener("load", () => {
 });
 
 
+
+
+
+
+new Swiper(".apostilasSwiper", {
+
+    loop: true,
+
+    speed: 700,
+
+    effect: "slide",
+
+    spaceBetween: 30,
+
+    autoplay: {
+
+        delay: 3000,
+
+        disableOnInteraction: false
+
+    },
+
+    navigation: {
+
+        nextEl: ".swiper-button-next",
+
+        prevEl: ".swiper-button-prev"
+
+    },
+
+    pagination: {
+
+        el: ".swiper-pagination",
+
+        clickable: true
+
+    },
+
+    breakpoints: {
+
+        0: {
+
+            slidesPerView: 1
+
+        },
+
+        768: {
+
+            slidesPerView: 2
+
+        },
+
+        1200: {
+
+            slidesPerView: 3
+
+        }
+
+    }
+
+});
 /*==========================
-FLOAT ALEATÓRIO
+NAVBAR ACTIVE
 ==========================*/
 
-setInterval(() => {
+const sections = document.querySelectorAll("section[id]");
+const navLinks = document.querySelectorAll(".navbar .nav-link");
+const nav = document.querySelector(".navbar");
 
-    cards.forEach(card => {
+function updateActiveLink() {
 
-        card.animate([
+    let current = "";
 
-            {
+    const scroll = window.scrollY + window.innerHeight / 3;
 
-                transform: "translateY(0px)"
+    sections.forEach(section => {
 
-            },
+        if (
+            scroll >= section.offsetTop &&
+            scroll < section.offsetTop + section.offsetHeight
+        ) {
 
-            {
+            current = section.id;
 
-                transform: "translateY(-4px)"
+        }
 
-            },
+    });
 
-            {
+    navLinks.forEach(link => {
 
-                transform: "translateY(0px)"
+    const isActive = link.getAttribute("href") === "#" + current;
 
+    link.classList.toggle("active", isActive);
+
+});
+
+}
+
+window.addEventListener("scroll", updateActiveLink);
+window.addEventListener("load", updateActiveLink);
+
+/*==========================
+HOVER DA NAVBAR
+==========================*/
+
+nav.addEventListener("mouseenter", () => {
+
+    nav.classList.add("hovering");
+
+});
+
+nav.addEventListener("mouseleave", () => {
+
+    nav.classList.remove("hovering");
+
+});
+
+/*==========================
+PRIORIDADE DO HOVER
+==========================*/
+
+navLinks.forEach(link => {
+
+    link.addEventListener("mouseenter", () => {
+
+        navLinks.forEach(item => {
+
+            if (
+                item.classList.contains("active") &&
+                item !== link
+            ) {
+                item.style.color = "white";
+                item.style.setProperty("--linha", "0%");
             }
-
-        ], {
-
-            duration: 2500 + Math.random() * 2000
 
         });
 
     });
 
-}, 5000);
+    link.addEventListener("mouseleave", () => {
+
+        updateActiveLink();
+
+        navLinks.forEach(item => {
+
+            item.style.color = "";
+            item.style.removeProperty("--linha");
+
+        });
+
+    });
+
+});
+
+/*==========================
+FILTRO DAS APOSTILAS
+==========================*/
+
+const filtros = {
+    banca: "",
+    escolaridade: "",
+    disciplina: ""
+};
+
+const botoesFiltro = document.querySelectorAll(".filter-btn");
+const aviso = document.getElementById("noResults");
+
+botoesFiltro.forEach(botao => {
+
+    botao.addEventListener("click", () => {
+
+        const grupo = botao.dataset.filter;
+        const valor = botao.dataset.value;
+
+        document.querySelectorAll(`.filter-btn[data-filter="${grupo}"]`)
+            .forEach(btn => btn.classList.remove("active"));
+
+        botao.classList.add("active");
+
+        filtros[grupo] = valor;
+
+        filtrarCards();
+
+    });
+
+});
+
+function filtrarCards() {
+
+    let encontrados = 0;
+
+    document.querySelectorAll(".apostilasSwiper .swiper-slide").forEach(slide => {
+
+        const bancaOk =
+            !filtros.banca ||
+            slide.dataset.banca === filtros.banca;
+
+        const escolaridadeOk =
+            !filtros.escolaridade ||
+            slide.dataset.escolaridade === filtros.escolaridade;
+
+        const disciplinaOk =
+            !filtros.disciplina ||
+            slide.dataset.disciplina === filtros.disciplina;
+
+        if (bancaOk && escolaridadeOk && disciplinaOk) {
+
+            slide.style.display = "";
+
+            encontrados++;
+
+        } else {
+
+            slide.style.display = "none";
+
+        }
+
+    });
+
+    swiper.update();
+
+    if (encontrados === 0) {
+
+        aviso.style.display = "block";
+
+    } else {
+
+        aviso.style.display = "none";
+
+    }
+
+}
