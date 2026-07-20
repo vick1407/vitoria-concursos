@@ -598,9 +598,83 @@ navLinks.forEach(link => {
 
 });
 
-/*==========================
+/*=========================================
+SWIPER
+=========================================*/
+
+let swiper;
+
+function iniciarSwiper() {
+
+    if (swiper) {
+        swiper.destroy(true, true);
+    }
+
+    swiper = new Swiper(".apostilasSwiper", {
+
+        loop: false,
+
+        speed: 700,
+
+        spaceBetween: 30,
+
+        autoplay: {
+
+            delay: 3000,
+
+            disableOnInteraction: false
+
+        },
+
+        navigation: {
+
+            nextEl: ".swiper-button-next",
+
+            prevEl: ".swiper-button-prev"
+
+        },
+
+        pagination: {
+
+            el: ".swiper-pagination",
+
+            clickable: true
+
+        },
+
+        breakpoints: {
+
+            0: {
+
+                slidesPerView: 1
+
+            },
+
+            768: {
+
+                slidesPerView: 2
+
+            },
+
+            1200: {
+
+                slidesPerView: 3
+
+            }
+
+        }
+
+    });
+
+}
+
+window.addEventListener("load", iniciarSwiper);
+
+
+
+/*=========================================
 FILTRO DAS APOSTILAS
-==========================*/
+=========================================*/
 
 const filtros = {
     banca: "",
@@ -608,51 +682,63 @@ const filtros = {
     disciplina: ""
 };
 
-const botoesFiltro = document.querySelectorAll(".filter-btn");
 const aviso = document.getElementById("noResults");
+const swiperContainer = document.querySelector(".apostilasSwiper");
+const slides = document.querySelectorAll(".apostilasSwiper .swiper-slide");
 
-botoesFiltro.forEach(botao => {
+/*==========================
+BOTÕES DOS FILTROS
+==========================*/
+
+document.querySelectorAll(".filter-btn").forEach(botao => {
 
     botao.addEventListener("click", () => {
 
         const grupo = botao.dataset.filter;
-        const valor = botao.dataset.value;
 
         document.querySelectorAll(`.filter-btn[data-filter="${grupo}"]`)
             .forEach(btn => btn.classList.remove("active"));
 
         botao.classList.add("active");
 
-        filtros[grupo] = valor;
+        filtros[grupo] = botao.dataset.value;
 
-        filtrarCards();
+        aplicarFiltros();
 
     });
 
 });
 
-function filtrarCards() {
+
+/*==========================
+APLICAR FILTROS
+==========================*/
+
+function aplicarFiltros() {
 
     let encontrados = 0;
 
-    document.querySelectorAll(".apostilasSwiper .swiper-slide").forEach(slide => {
+    slides.forEach(slide => {
 
-        const bancaOk =
-            !filtros.banca ||
-            slide.dataset.banca === filtros.banca;
+        const banca = slide.dataset.banca;
+        const escolaridade = slide.dataset.escolaridade;
+        const disciplina = slide.dataset.disciplina;
 
-        const escolaridadeOk =
-            !filtros.escolaridade ||
-            slide.dataset.escolaridade === filtros.escolaridade;
+        const bancaOK =
+            filtros.banca === "" ||
+            banca === filtros.banca;
 
-        const disciplinaOk =
-            !filtros.disciplina ||
-            slide.dataset.disciplina === filtros.disciplina;
+        const escolaridadeOK =
+            filtros.escolaridade === "" ||
+            escolaridade === filtros.escolaridade;
 
-        if (bancaOk && escolaridadeOk && disciplinaOk) {
+        const disciplinaOK =
+            filtros.disciplina === "" ||
+            disciplina === filtros.disciplina;
+
+        if (bancaOK && escolaridadeOK && disciplinaOK) {
 
             slide.style.display = "";
-
             encontrados++;
 
         } else {
@@ -663,16 +749,87 @@ function filtrarCards() {
 
     });
 
-    swiper.update();
+    if (swiper) {
+
+        swiper.update();
+        swiper.slideTo(0);
+
+    }
 
     if (encontrados === 0) {
 
+        swiperContainer.style.display = "none";
         aviso.style.display = "block";
 
     } else {
 
+        swiperContainer.style.display = "block";
         aviso.style.display = "none";
 
     }
+
+}
+
+
+/*=========================================
+ABRIR / FECHAR FILTROS
+=========================================*/
+
+const toggleFilters = document.getElementById("toggleFilters");
+const filtersContainer = document.getElementById("filtersContainer");
+
+if (toggleFilters && filtersContainer) {
+
+    toggleFilters.addEventListener("click", () => {
+
+        const abriu = filtersContainer.classList.toggle("show");
+
+        toggleFilters.classList.toggle("active");
+
+        // Se FECHOU os filtros
+        if (!abriu) {
+
+            // Limpa os filtros
+            filtros.banca = "";
+            filtros.escolaridade = "";
+            filtros.disciplina = "";
+
+            // Volta o botão "Todas" de cada grupo
+            ["banca", "escolaridade", "disciplina"].forEach(grupo => {
+
+                document
+                    .querySelectorAll(`.filter-btn[data-filter="${grupo}"]`)
+                    .forEach(btn => btn.classList.remove("active"));
+
+                const todas = document.querySelector(
+                    `.filter-btn[data-filter="${grupo}"][data-value=""]`
+                );
+
+                if (todas) {
+                    todas.classList.add("active");
+                }
+
+            });
+
+            // Mostra todos os cards
+            slides.forEach(slide => {
+                slide.style.display = "";
+            });
+
+            // Esconde a mensagem
+            aviso.style.display = "none";
+
+            // Mostra novamente o carrossel
+            swiperContainer.style.display = "block";
+
+            // Atualiza o Swiper
+            if (swiper) {
+                swiper.update();
+                swiper.slideTo(0);
+            }
+
+        }
+
+    });
 
 }

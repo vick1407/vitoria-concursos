@@ -185,8 +185,14 @@
 
     </section>
 
-   <!-- APOSTILAS -->
+    
+
+ <!--=========================================
+APOSTILAS
+==========================================-->
+
 <section class="products" id="apostilas">
+    
 
     <div class="container">
 
@@ -196,46 +202,153 @@
 
             <h2>Escolha sua próxima aprovação</h2>
 
+            <p>
+                Utilize os filtros abaixo para encontrar rapidamente a apostila ideal para o seu concurso.
+            </p>
+
         </div>
 
         <!-- FILTROS -->
 
-        <div class="filters">
+        <div class="filter-toggle">
+    <button id="toggleFilters" class="btn-filter">
+        <i class="fas fa-filter"></i>
+        Filtros
+        <i class="fas fa-chevron-down arrow"></i>
+    </button>
+</div>
+
+        <div class="filters-container" id="filtersContainer">
+
+            <!-- BANCA -->
 
             <div class="filter-group">
 
                 <h5>Banca</h5>
 
-                <button class="filter-btn active" data-filter="banca" data-value="">Todas</button>
-                <button class="filter-btn" data-filter="banca" data-value="Fundatec">Fundatec</button>
-                <button class="filter-btn" data-filter="banca" data-value="Fênix">Fênix</button>
-                <button class="filter-btn" data-filter="banca" data-value="Legalle">Legalle</button>
-                <button class="filter-btn" data-filter="banca" data-value="La Salle">La Salle</button>
-                <button class="filter-btn" data-filter="banca" data-value="Objetiva">Objetiva</button>
+                <div class="filter-buttons">
+
+                    <button class="filter-btn active"
+                        data-filter="banca"
+                        data-value="">
+                        Todas
+                    </button>
+
+                    <button class="filter-btn"
+                        data-filter="banca"
+                        data-value="Fundatec">
+                        Fundatec
+                    </button>
+
+                    <button class="filter-btn"
+                        data-filter="banca"
+                        data-value="Fênix">
+                        Fênix
+                    </button>
+
+                    <button class="filter-btn"
+                        data-filter="banca"
+                        data-value="Legalle">
+                        Legalle
+                    </button>
+
+                    <button class="filter-btn"
+                        data-filter="banca"
+                        data-value="La Salle">
+                        La Salle
+                    </button>
+
+                    <button class="filter-btn"
+                        data-filter="banca"
+                        data-value="Objetiva">
+                        Objetiva
+                    </button>
+
+                </div>
 
             </div>
+
+            <!-- ESCOLARIDADE -->
 
             <div class="filter-group">
 
                 <h5>Escolaridade</h5>
 
-                <button class="filter-btn active" data-filter="escolaridade" data-value="">Todas</button>
-                <button class="filter-btn" data-filter="escolaridade" data-value="Fundamental">Fundamental</button>
-                <button class="filter-btn" data-filter="escolaridade" data-value="Médio">Médio</button>
-                <button class="filter-btn" data-filter="escolaridade" data-value="Superior">Superior</button>
+                <div class="filter-buttons">
+
+                    <button class="filter-btn active"
+                        data-filter="escolaridade"
+                        data-value="">
+                        Todas
+                    </button>
+
+                    <button class="filter-btn"
+                        data-filter="escolaridade"
+                        data-value="Fundamental">
+                        Fundamental
+                    </button>
+
+                    <button class="filter-btn"
+                        data-filter="escolaridade"
+                        data-value="Médio">
+                        Médio
+                    </button>
+
+                    <button class="filter-btn"
+                        data-filter="escolaridade"
+                        data-value="Superior">
+                        Superior
+                    </button>
+
+                </div>
 
             </div>
 
-            <div class="filter-group">
+            <!-- DISCIPLINA -->
+
+            <div class="filter-group filter-center">
 
                 <h5>Disciplina</h5>
 
-                <button class="filter-btn active" data-filter="disciplina" data-value="">Todas</button>
-                <button class="filter-btn" data-filter="disciplina" data-value="Língua Portuguesa">Português</button>
-                <button class="filter-btn" data-filter="disciplina" data-value="Matemática">Matemática</button>
-                <button class="filter-btn" data-filter="disciplina" data-value="Raciocínio Lógico">Raciocínio Lógico</button>
-                <button class="filter-btn" data-filter="disciplina" data-value="Informática">Informática</button>
-                <button class="filter-btn" data-filter="disciplina" data-value="Legislação">Legislação</button>
+                <div class="filter-buttons">
+
+                    <button class="filter-btn active"
+                        data-filter="disciplina"
+                        data-value="">
+                        Todas
+                    </button>
+
+                    <button class="filter-btn"
+                        data-filter="disciplina"
+                        data-value="Língua Portuguesa">
+                        Português
+                    </button>
+
+                    <button class="filter-btn"
+                        data-filter="disciplina"
+                        data-value="Matemática">
+                        Matemática
+                    </button>
+
+                    <button class="filter-btn"
+                        data-filter="disciplina"
+                        data-value="Raciocínio Lógico">
+                        Raciocínio Lógico
+                    </button>
+
+                    <button class="filter-btn"
+                        data-filter="disciplina"
+                        data-value="Informática">
+                        Informática
+                    </button>
+
+                    <button class="filter-btn"
+                        data-filter="disciplina"
+                        data-value="Legislação">
+                        Legislação
+                    </button>
+
+                </div>
 
             </div>
 
@@ -272,17 +385,18 @@
 
                             <h3>Língua Portuguesa</h3>
 
-                            <p>Questões comentadas, teoria objetiva e estratégias para a banca.</p>
+                            <p>
+                                Questões comentadas com teoria completa e explicações detalhadas.
+                            </p>
 
                             <div class="stars">
-
                                 ★★★★★
-
                             </div>
 
-                            <a target="_blank"
-                               href="https://pay.kiwify.com.br/POPVYTL"
-                               class="btn-buy">
+                            <a
+                                href="https://pay.kiwify.com.br/POPVYTL"
+                                target="_blank"
+                                class="btn-buy">
 
                                 Comprar
 
@@ -319,15 +433,17 @@
 
                             <h3>Matemática</h3>
 
-                            <p>Questões comentadas, teoria objetiva e estratégias para a banca.</p>
+                            <p>
+                                Conteúdo direcionado para concursos com centenas de questões comentadas.
+                            </p>
 
                             <div class="stars">
-
                                 ★★★★★
-
                             </div>
 
-                            <a href="#" class="btn-buy">
+                            <a
+                                href="#"
+                                class="btn-buy">
 
                                 Comprar
 
@@ -364,15 +480,17 @@
 
                             <h3>Informática</h3>
 
-                            <p>Questões comentadas, teoria objetiva e estratégias para a banca.</p>
+                            <p>
+                                Material atualizado conforme os principais editais da banca.
+                            </p>
 
                             <div class="stars">
-
                                 ★★★★★
-
                             </div>
 
-                            <a href="#" class="btn-buy">
+                            <a
+                                href="#"
+                                class="btn-buy">
 
                                 Comprar
 
@@ -383,7 +501,7 @@
                     </div>
 
                 </div>
-                                <!-- CARD 4 -->
+                <!-- CARD 4 -->
 
                 <div class="swiper-slide"
                     data-banca="Fundatec"
@@ -408,15 +526,17 @@
 
                             <h3>Legislação</h3>
 
-                            <p>Questões comentadas, teoria objetiva e estratégias para a banca.</p>
+                            <p>
+                                Material completo, atualizado e com questões comentadas.
+                            </p>
 
                             <div class="stars">
-
                                 ★★★★★
-
                             </div>
 
-                            <a href="#" class="btn-buy">
+                            <a
+                                href="#"
+                                class="btn-buy">
 
                                 Comprar
 
@@ -453,15 +573,17 @@
 
                             <h3>Língua Portuguesa</h3>
 
-                            <p>Questões comentadas, teoria objetiva e estratégias para a banca.</p>
+                            <p>
+                                Questões comentadas seguindo o estilo da banca Fênix.
+                            </p>
 
                             <div class="stars">
-
                                 ★★★★★
-
                             </div>
 
-                            <a href="#" class="btn-buy">
+                            <a
+                                href="#"
+                                class="btn-buy">
 
                                 Comprar
 
@@ -498,15 +620,17 @@
 
                             <h3>Raciocínio Lógico</h3>
 
-                            <p>Questões comentadas, teoria objetiva e estratégias para a banca.</p>
+                            <p>
+                                Material completo com teoria objetiva e exercícios comentados.
+                            </p>
 
                             <div class="stars">
-
                                 ★★★★★
-
                             </div>
 
-                            <a href="#" class="btn-buy">
+                            <a
+                                href="#"
+                                class="btn-buy">
 
                                 Comprar
 
@@ -520,25 +644,31 @@
 
             </div>
 
+            <!-- Botões -->
+
             <div class="swiper-button-prev"></div>
 
             <div class="swiper-button-next"></div>
 
-
         </div>
+
+        <!-- Mensagem quando não encontrar -->
+
         <div id="noResults" class="no-results">
 
-    <i class="fas fa-search"></i>
+            <i class="fas fa-search"></i>
 
-    <h3>Nenhuma apostila encontrada</h3>
+            <h3>Nenhuma apostila encontrada</h3>
 
-    <p>Tente alterar os filtros ou selecionar outras opções.</p>
+            <p>
 
-</div>
+                Tente alterar os filtros ou pesquisar outro termo.
+
+            </p>
+
+        </div>
 
     </div>
-
-</div>
 
 </section>
 
