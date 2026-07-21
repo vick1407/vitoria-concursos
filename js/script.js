@@ -443,11 +443,6 @@ window.addEventListener("load", () => {
 
 });
 
-
-
-
-
-
 new Swiper(".apostilasSwiper", {
 
     loop: true,
@@ -679,7 +674,8 @@ FILTRO DAS APOSTILAS
 const filtros = {
     banca: "",
     escolaridade: "",
-    disciplina: ""
+    disciplina: "",
+    material: ""
 };
 
 const aviso = document.getElementById("noResults");
@@ -723,6 +719,7 @@ function aplicarFiltros() {
         const banca = slide.dataset.banca;
         const escolaridade = slide.dataset.escolaridade;
         const disciplina = slide.dataset.disciplina;
+        const material = slide.dataset.material;
 
         const bancaOK =
             filtros.banca === "" ||
@@ -736,7 +733,11 @@ function aplicarFiltros() {
             filtros.disciplina === "" ||
             disciplina === filtros.disciplina;
 
-        if (bancaOK && escolaridadeOK && disciplinaOK) {
+        const materialOK =
+            filtros.material === "" ||
+            material === filtros.material;
+
+        if (bancaOK && escolaridadeOK && disciplinaOK && materialOK) {
 
             slide.style.display = "";
             encontrados++;
@@ -793,9 +794,10 @@ if (toggleFilters && filtersContainer) {
             filtros.banca = "";
             filtros.escolaridade = "";
             filtros.disciplina = "";
+            filtros.material = "";
 
             // Volta o botão "Todas" de cada grupo
-            ["banca", "escolaridade", "disciplina"].forEach(grupo => {
+            ["banca", "escolaridade", "disciplina", "material"].forEach(grupo => {
 
                 document
                     .querySelectorAll(`.filter-btn[data-filter="${grupo}"]`)
